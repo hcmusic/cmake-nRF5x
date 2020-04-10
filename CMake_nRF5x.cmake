@@ -370,18 +370,6 @@ macro(nRF5x_setup)
             "${NRF5_SDK_PATH}/components/ble/peer_manager"
     )
 
-    list(APPEND SDK_SOURCE_FILES
-            "${NRF5_SDK_PATH}/components/softdevice/common/nrf_sdh_ble.c"
-            "${NRF5_SDK_PATH}/components/ble/common/ble_advdata.c"
-            "${NRF5_SDK_PATH}/components/ble/common/ble_conn_params.c"
-            "${NRF5_SDK_PATH}/components/ble/common/ble_conn_state.c"
-            "${NRF5_SDK_PATH}/components/ble/common/ble_srv_common.c"
-            "${NRF5_SDK_PATH}/components/ble/ble_advertising/ble_advertising.c"
-            "${NRF5_SDK_PATH}/components/ble/ble_link_ctx_manager/ble_link_ctx_manager.c"
-            "${NRF5_SDK_PATH}/components/ble/ble_services/ble_nus/ble_nus.c"
-            "${NRF5_SDK_PATH}/components/ble/nrf_ble_qwr/nrf_ble_qwr.c"
-            )
-
     # adds target for erasing and flashing the board with a softdevice
     if(BLACKMAGIC_DEVICE)
     add_custom_target("FLASH_SOFTDEVICE" ALL
@@ -731,6 +719,7 @@ endmacro(nRF5x_addAppFDS)
 # endmacro(nRF5x_addNFC)
 
 macro(nRF5x_addBLEService NAME)
+    set(USE_SOFTDEVICE true)
     include_directories(
             "${NRF5_SDK_PATH}/components/ble/ble_services/${NAME}"
     )
@@ -740,3 +729,19 @@ macro(nRF5x_addBLEService NAME)
             )
 
 endmacro(nRF5x_addBLEService)
+
+
+if(USE_SOFTDEVICE)
+    list(APPEND SDK_SOURCE_FILES
+    "${NRF5_SDK_PATH}/components/softdevice/common/nrf_sdh_ble.c"
+    "${NRF5_SDK_PATH}/components/ble/common/ble_advdata.c"
+    "${NRF5_SDK_PATH}/components/ble/common/ble_conn_params.c"
+    "${NRF5_SDK_PATH}/components/ble/common/ble_conn_state.c"
+    "${NRF5_SDK_PATH}/components/ble/common/ble_srv_common.c"
+    "${NRF5_SDK_PATH}/components/ble/ble_advertising/ble_advertising.c"
+    "${NRF5_SDK_PATH}/components/ble/ble_link_ctx_manager/ble_link_ctx_manager.c"
+    "${NRF5_SDK_PATH}/components/ble/ble_services/ble_nus/ble_nus.c"
+    "${NRF5_SDK_PATH}/components/ble/nrf_ble_qwr/nrf_ble_qwr.c"
+    )
+
+endif()
