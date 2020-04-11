@@ -559,7 +559,8 @@ macro(nRF5x_addAppUART)
     )
 
     list(APPEND SDK_SOURCE_FILES
-            "${NRF5_SDK_PATH}/components/libraries/uart/app_uart_fifo.c"
+            "${NRF5_SDK_PATH}/components/libraries/uart/app_uart.c"
+            #"${NRF5_SDK_PATH}/components/libraries/uart/app_uart_fifo.c"
             )
 
 endmacro(nRF5x_addAppUART)
