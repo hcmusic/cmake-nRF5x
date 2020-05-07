@@ -732,7 +732,7 @@ macro(nRF5x_addBLEService NAME)
 endmacro(nRF5x_addBLEService)
 
 
-if(USE_SOFTDEVICE)
+if(SOFTDEVICE_PRESENT)
     list(APPEND SDK_SOURCE_FILES
     "${NRF5_SDK_PATH}/components/softdevice/common/nrf_sdh_ble.c"
     "${NRF5_SDK_PATH}/components/ble/common/ble_advdata.c"
