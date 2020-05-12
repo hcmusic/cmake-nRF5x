@@ -116,7 +116,8 @@ macro(nRF5x_setup)
     option(LIB_UART "include uart" true)
     option(LIB_UARTE "include uart" true)
     option(LIB_GPIOTE "include gpiote" true)
-    option(LIB_SDH "include soft device libraries" true)
+    option(LIB_SDH "include soft device libraries" false)
+    option(LIB_NVMC "include nvmc hal" true)
     option(LIB_DRV_CLOCK "incluce drv clock" true)
     option(LIB_BOARDS "include boards" true)
     option(LIB_PRS "include prs" true)
@@ -138,6 +139,12 @@ macro(nRF5x_setup)
         list(APPEND SDK_SOURCE_FILES
             "${NRF5_SDK_PATH}/components/softdevice/common/nrf_sdh.c"
             "${NRF5_SDK_PATH}/components/softdevice/common/nrf_sdh_soc.c")
+    endif()
+    if(LIB_NVMC)
+        list(APPEND SDK_SOURCE_FILES
+            "${NRF5_SDK_PATH}/modules/nrfx/hal/nrf_nvmc.c"
+        )
+        include_directories("${NRF5_SDK_PATH}/modules/nrfx/hal")
     endif()
     if(LIB_DRV_CLOCK)
         list(APPEND SDK_SOURCE_FILES "${NRF5_SDK_PATH}/integration/nrfx/legacy/nrf_drv_clock.c")
